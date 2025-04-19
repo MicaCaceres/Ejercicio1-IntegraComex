@@ -1,0 +1,96 @@
+﻿@model Ejercicio1_CRUD_Clientes.Models.Cliente
+
+@{
+    ViewBag.Title = "Alta de Cliente";
+}
+
+<h2>Alta de Cliente</h2>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formCliente" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- CUIT -->
+        <div class="form-group">
+            @Html.LabelFor(m => m.Cuit)
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.Cuit, new { @class = "form-control", id = "cuit" })
+                <div class="input-group-append">
+                    <button type="button" id="btnIdentificar" class="btn btn-info" style="margin-left: 10px;">Identificar</button>
+                </div>
+            </div>
+            @Html.ValidationMessageFor(m => m.Cuit, "", new { @class = "text-danger" })
+            <small id="alertaNoEncontrado" class="text-danger d-none">No se encontró una Razón Social con ese CUIT.</small>
+        </div>
+
+        <!-- Razón Social -->
+        <div class="form-group">
+            @Html.LabelFor(m => m.RazonSocial)
+            @Html.TextBoxFor(m => m.RazonSocial, new { @class = "form-control", id = "razonSocial", @readonly = "readonly" })
+            @Html.ValidationMessageFor(m => m.RazonSocial, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-group">
+            @Html.LabelFor(m => m.Telefono)
+            @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", id = "telefono", type = "number" })
+            @Html.ValidationMessageFor(m => m.Telefono, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Dirección -->
+        <div class="form-group">
+            @Html.LabelFor(m => m.Direccion)
+            @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control", id = "direccion" })
+            @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Activo -->
+        <div class="form-group">
+            @Html.LabelFor(m => m.Activo)
+            @Html.CheckBoxFor(m => m.Activo)
+            @Html.ValidationMessageFor(m => m.Activo, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Botón Guardar -->
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $('#btnIdentificar').on('click', function () {
+            const cuit = $('#cuit').val().trim();
+            $('#razonSocial').val('');
+            $('#alertaNoEncontrado').addClass('d-none');
+
+            if (cuit.length === 11) {
+                $.ajax({
+                    url: `/Cliente/ObtenerRazonSocialPorCuit?cuit=${cuit}`,
+                    method: 'GET',
+                    success: function (data) {
+                        if (data && data !== "") {
+                            $('#razonSocial').val(data);
+                            console.log("Razón Social encontrada y cargada automáticamente.");
+                        } else {
+                            $('#alertaNoEncontrado').removeClass('d-none');
+                            $('#razonSocial').val('');
+                            console.log("CUIT no encontrado.");
+                        }
+                    },
+                    error: function () {
+                        $('#alertaNoEncontrado').removeClass('d-none');
+                        $('#razonSocial').val('');
+                        console.log("Error al obtener la Razón Social.");
+                    }
+                });
+            } else {
+                $('#alertaNoEncontrado').removeClass('d-none');
+                $('#razonSocial').val('');
+                console.log("CUIT inválido.");
+            }
+        });
+    </script>
+}

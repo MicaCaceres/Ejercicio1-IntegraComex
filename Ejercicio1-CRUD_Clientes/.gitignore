@@ -1,0 +1,32 @@
+## Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Compilados
+bin/
+obj/
+
+## Paquetes
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Archivos de log
+*.log
+
+## Config local
+appsettings.Development.json
+appsettings.Local.json
+
+## Otros
+*.db
+*.db-shm
+*.db-wal
+.env

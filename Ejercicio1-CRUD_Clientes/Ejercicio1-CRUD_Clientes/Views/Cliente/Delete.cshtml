@@ -1,0 +1,37 @@
+﻿@model Ejercicio1_CRUD_Clientes.Models.Cliente
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>¿Estás segura/o que querés eliminar este cliente?</h3>
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.RazonSocial)</dt>
+        <dd>@Html.DisplayFor(model => model.RazonSocial)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Telefono)</dt>
+        <dd>@Html.DisplayFor(model => model.Telefono)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Direccion)</dt>
+        <dd>@Html.DisplayFor(model => model.Direccion)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Activo)</dt>
+        <dd>@(Model.Activo ? "Sí" : "No")</dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Cliente", new { cuit = Model.Cuit }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Cuit)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-primary btn-sm" /> |
+            @Html.ActionLink("Volver", "Index", "Cliente", new { @class = "btn btn-primary btn-sm" })
+        </div>
+    }
+
+</div>

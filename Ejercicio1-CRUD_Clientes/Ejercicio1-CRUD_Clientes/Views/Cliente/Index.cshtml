@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Ejercicio1_CRUD_Clientes.Models.Cliente>
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<h2>Listado de Clientes</h2>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>CUIT</th>
+            <th>Razón Social</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Activo</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Cuit</td>
+                <td>@item.RazonSocial</td>
+                <td>@item.Telefono</td>
+                <td>@item.Direccion</td>
+                <td>@(item.Activo ? "Sí" : "No")</td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", "Cliente", new { cuit = item.Cuit }, new { @class = "btn btn-primary btn-sm" }) |
+                    @Html.ActionLink("Eliminar", "Delete", "Cliente", new { cuit = item.Cuit }, new { @class = "btn btn-primary btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
