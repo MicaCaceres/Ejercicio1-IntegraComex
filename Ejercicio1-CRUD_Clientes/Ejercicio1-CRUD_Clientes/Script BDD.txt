@@ -1,0 +1,14 @@
+CREATE DATABASE CRUDClientesDB;
+GO
+
+USE CRUDClientesDB;
+GO
+
+CREATE TABLE Clientes (
+    Cuit NVARCHAR(11) NOT NULL,
+    RazonSocial NVARCHAR(MAX) NULL,
+    Telefono BIGINT NOT NULL,
+    Direccion NVARCHAR(200) NULL,
+    Activo BIT NOT NULL,
+    CONSTRAINT PK_Clientes PRIMARY KEY CLUSTERED (Cuit ASC)
+);
