@@ -41,6 +41,11 @@ namespace Ejercicio1_CRUD_Clientes.Services
         {
             try
             {
+                var existente = await db.Clientes.FindAsync(cliente.Cuit);
+                if (existente != null)
+                {
+                    throw new InvalidOperationException("El cliente ya existe.");
+                }
                 db.Clientes.Add(cliente);
                 await db.SaveChangesAsync();
             }

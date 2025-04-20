@@ -53,8 +53,13 @@ namespace Ejercicio1_CRUD_Clientes.Controllers
                     TempData["Success"] = "Cliente creado exitosamente.";
                     return RedirectToAction("Index");
                 }
-
                 Log.Warning("Modelo inválido al crear cliente");
+                return View(cliente);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                Log.Error(ex, "Error al crear el cliente.Cliente ya existente");
                 return View(cliente);
             }
             catch (Exception ex)
