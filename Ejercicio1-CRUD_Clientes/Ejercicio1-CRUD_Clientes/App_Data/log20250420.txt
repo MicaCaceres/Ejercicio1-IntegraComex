@@ -1,0 +1,5 @@
+[20/04/2025 16:31:23] [INF] Aplicación iniciada
+[20/04/2025 16:31:25] [INF] Accediendo a la vista de creación de cliente
+[20/04/2025 16:32:06] [INF] Razon social obtenida para el CUIT: 27441519791
+[20/04/2025 16:33:05] [INF] Accediendo a la lista de clientes
+[20/04/2025 16:33:05] [INF] Lista de clientes cargada correctamente
